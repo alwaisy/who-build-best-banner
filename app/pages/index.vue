@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { queryCollection, useAsyncData } from "#imports";
+import { useAsyncData } from "#imports";
 import Fuse from "fuse.js";
 import { computed, onBeforeUnmount, ref, watch } from "vue";
 import HomeHero from "~/components/home/Hero.vue";
+import { fetchProfiles } from "~/composables/use-profiles";
 
 definePageMeta({ viewTransition: true });
 defineOgImageComponent("Frame", {
@@ -33,7 +34,7 @@ onBeforeUnmount(() => {
   if (debounceTimer) clearTimeout(debounceTimer);
 });
 
-// Simple SSR-friendly fetch of all profiles
+// Simple SSR-friendly fetch of all profiles (normalized to latest version)
 const {
   data: profiles,
   pending,
@@ -41,7 +42,7 @@ const {
   refresh,
 } = await useAsyncData(
   "profiles:all",
-  () => queryCollection("profiles").all(),
+  () => fetchProfiles(),
   {
     server: true,
     default: () => [],

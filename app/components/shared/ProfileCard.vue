@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { onMounted, ref, computed } from "vue";
+import Autoplay from "embla-carousel-autoplay";
 import type { Profile } from "~/lib/schema";
 
 const props = defineProps<{ item: Profile }>();
 
-const bannerUrl = computed(() => {
-  const b = props.item.bannerImageUrl;
-  if (Array.isArray(b)) return b[0] ?? null;
-  return b ?? null;
+// Normalize array of banners for carousel
+const banners = computed<string[]>(() => {
+  const b = props.item.bannerImageUrl as string | string[] | null;
+  if (!b) return [];
+  return Array.isArray(b) ? b.filter(Boolean) : [b];
 });
 
 // Likes state
@@ -17,9 +18,9 @@ const likeLoading = ref(false);
 
 // Uploader (author) link: prefer item.uploaderLinkedin else fallback to alwaisy
 const uploaderUrl = computed(() => {
-  const fromContent = props.item.uploaderLinkedin ?? undefined
-  if (fromContent && fromContent.startsWith('http')) return fromContent
-  return 'https://www.linkedin.com/in/alwaisy'
+  const fromContent = props.item.uploaderLinkedin ?? undefined;
+  if (fromContent && fromContent.startsWith("http")) return fromContent;
+  return "https://www.linkedin.com/in/alwaisy";
 });
 
 const uploaderHandle = computed(() => {
@@ -28,7 +29,8 @@ const uploaderHandle = computed(() => {
     // Expect /in/<username>
     const parts = url.pathname.split("/").filter(Boolean);
     const idx = parts.indexOf("in");
-    const handle = idx >= 0 && parts[idx + 1] ? parts[idx + 1] : parts[parts.length - 1];
+    const handle =
+      idx >= 0 && parts[idx + 1] ? parts[idx + 1] : parts[parts.length - 1];
     return `@${handle}`;
   } catch {
     return "@uploader";
@@ -37,7 +39,9 @@ const uploaderHandle = computed(() => {
 
 onMounted(async () => {
   try {
-    const res = await $fetch<{ count: number; liked: boolean }>(`/api/likes/${props.item.username}`);
+    const res = await $fetch<{ count: number; liked: boolean }>(
+      `/api/likes/${props.item.username}`
+    );
     likeCount.value = res.count;
     liked.value = res.liked;
   } catch {
@@ -53,9 +57,12 @@ async function toggleLike() {
   liked.value = !wasLiked;
   likeCount.value += wasLiked ? -1 : 1;
   try {
-    const res = await $fetch<{ count: number; liked: boolean }>(`/api/likes/${props.item.username}`, {
-      method: wasLiked ? "DELETE" : "POST",
-    });
+    const res = await $fetch<{ count: number; liked: boolean }>(
+      `/api/likes/${props.item.username}`,
+      {
+        method: wasLiked ? "DELETE" : "POST",
+      }
+    );
     likeCount.value = res.count;
     liked.value = res.liked;
   } catch {
@@ -66,24 +73,88 @@ async function toggleLike() {
     likeLoading.value = false;
   }
 }
+// console.log(banners.value, "banners")
+const currentIndex = ref(0);
+type ElLike = HTMLElement | { $el?: HTMLElement } | null;
+const carouselContentRef = ref<ElLike>(null);
+
+onMounted(() => {
+  const raw = carouselContentRef.value;
+  const el = (raw && (raw instanceof HTMLElement ? raw : raw.$el)) || null;
+  if (!el) return;
+  const onScroll = () => {
+    const w = el.clientWidth || 1;
+    currentIndex.value = Math.round(el.scrollLeft / w);
+  };
+  el.addEventListener("scroll", onScroll, { passive: true });
+});
+
+function goToSlide(i: number) {
+  const raw = carouselContentRef.value;
+  const el = (raw && (raw instanceof HTMLElement ? raw : raw.$el)) || null;
+  if (!el) return;
+  const w = el.clientWidth || 0;
+  el.scrollTo({ left: i * w, behavior: "smooth" });
+}
 </script>
 
 <template>
   <Card style="padding-top: 0">
-    <NuxtLink
-      :to="`/in/${item.username}`"
-      class="w-full rounded-t-xl"
-      view-transition
-    >
-      <img
-        v-if="bannerUrl"
-        :src="bannerUrl as string"
-        :alt="(item.fullName ?? item.username) + ' banner'"
-        class="block w-full object-cover object-center rounded-t-xl"
-        :style="{ viewTransitionName: `banner-${item.username}` }"
-      />
-      <div v-else class="h-[300px] w-full bg-muted" />
-    </NuxtLink>
+    <div class="w-full rounded-t-xl overflow-hidden relative">
+      <template v-if="banners.length === 0">
+        <div class="h-[300px] w-full bg-muted" />
+      </template>
+      <template v-else>
+        <ClientOnly>
+          <Carousel
+            :plugins="[
+              Autoplay({
+                delay: 3000,
+                stopOnMouseEnter: true,
+              }),
+            ]"
+          >
+            <CarouselContent ref="carouselContentRef">
+              <CarouselItem v-for="(src, idx) in banners" :key="src + idx">
+                <NuxtLink
+                  :to="`/in/${item.username}`"
+                  class="block"
+                  view-transition
+                >
+                  <img
+                    :src="src"
+                    :alt="(item.fullName ?? item.username) + ' banner'"
+                    class="block w-full object-cover object-center rounded-t-xl"
+                    :style="{ viewTransitionName: `banner-${item.username}` }"
+                    loading="lazy"
+                  />
+                </NuxtLink>
+              </CarouselItem>
+            </CarouselContent>
+            <!-- Dots (top-right). Active = small bar; others = dots -->
+            <div class="absolute top-3 right-3 z-10">
+              <div
+                class="flex items-center gap-1.5 rounded-full bg-black/40 backdrop-blur px-2 py-1 border border-white/10"
+              >
+                <button
+                  v-for="(_, i) in banners"
+                  :key="'dot-' + i"
+                  class="transition-all duration-200"
+                  :class="
+                    i === currentIndex
+                      ? 'w-6 h-2 rounded-full bg-white'
+                      : 'w-2.5 h-2.5 rounded-full bg-white/70 hover:bg-white'
+                  "
+                  :aria-current="i === currentIndex ? 'true' : 'false'"
+                  aria-label="Go to slide"
+                  @click.stop.prevent="goToSlide(i)"
+                />
+              </div>
+            </div>
+          </Carousel>
+        </ClientOnly>
+      </template>
+    </div>
 
     <NuxtLink :to="`/in/${item.username}`" view-transition>
       <CardContent class="relative">
@@ -104,10 +175,15 @@ async function toggleLike() {
         </div>
 
         <div class="flex justify-end gap-x-4">
-          <Badge>{{ item.username }}</Badge>
-          <Badge variant="outline" class="hidden sm:inline-flex">
-            Updated at: {{ new Date(item.scrapedAt).toLocaleDateString() }}
-          </Badge>
+          <template v-if="item.isProvider">
+            <Badge variant="default">Provider</Badge>
+          </template>
+          <template v-else>
+            <Badge>{{ item.username }}</Badge>
+            <Badge variant="outline" class="hidden sm:inline-flex">
+              Updated at: {{ new Date(item.scrapedAt).toLocaleDateString() }}
+            </Badge>
+          </template>
         </div>
 
         <div class="min-w-0 mt-16 sm:mt-24">
