@@ -63,6 +63,7 @@ export default defineNuxtConfig({
   },
 
   umami: {
+    enabled: process.env.NODE_ENV === "production",
     autoTrack: true,
     useDirective: true,
   },
