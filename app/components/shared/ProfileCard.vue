@@ -211,7 +211,7 @@ function goToSlide(i: number) {
 
         <div class="flex justify-end gap-x-4">
           <template v-if="item.isProvider">
-            <Badge variant="default">LinkedIn Service</Badge>
+            <Badge variant="default">LinkedIn Services</Badge>
           </template>
           <template v-else>
             <Badge>{{ item.username }}</Badge>
@@ -237,22 +237,44 @@ function goToSlide(i: number) {
     </NuxtLink>
     <Separator decorative />
     <CardFooter class="relative flex justify-between">
-      <Button as-child variant="outline" size="icon">
-        <NuxtLink
-          v-umami="{
-            name: 'external_link_click',
-            username: item.username,
-            destination: 'linkedin_profile',
-            location: 'profile_card'
-          }"
-          :to="item.profileUrl"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex items-center gap-2"
-        >
-          <Icon name="mdi:linkedin" size="28" />
-        </NuxtLink>
-      </Button>
+      <template v-if="item.isProvider">
+        <Button as-child variant="outline" size="sm">
+          <NuxtLink
+            v-umami="{
+              name: 'external_link_click',
+              username: item.username,
+              destination: 'linkedin_profile',
+              location: 'profile_card'
+            }"
+            :to="item.profileUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2"
+          >
+            <Icon name="mdi:linkedin" size="18" />
+            <span class="hidden sm:inline">DM on LinkedIn</span>
+            <span class="sm:hidden">DM on</span>
+          </NuxtLink>
+        </Button>
+      </template>
+      <template v-else>
+        <Button as-child variant="outline" size="icon">
+          <NuxtLink
+            v-umami="{
+              name: 'external_link_click',
+              username: item.username,
+              destination: 'linkedin_profile',
+              location: 'profile_card'
+            }"
+            :to="item.profileUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-2"
+          >
+            <Icon name="mdi:linkedin" size="28" />
+          </NuxtLink>
+        </Button>
+      </template>
       <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         <Button
           as-child

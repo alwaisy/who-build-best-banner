@@ -1,6 +1,7 @@
 const featured = [
   "fahaddev",
-  "yedattaullah96",
+  "iabdullahmahmed",
+  // "syedattaullah96",
   "redwanahmedz",
   "arslaniqbal-personal-growth-expert-content-writing-strategy",
   "mbilalalam",
