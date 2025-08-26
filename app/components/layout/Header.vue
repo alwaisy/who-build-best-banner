@@ -9,10 +9,26 @@
       </div>
       <nav class="flex items-center gap-3">
         <Button as-child size="sm" variant="ghost">
-          <NuxtLink to="/about">About</NuxtLink>
+          <NuxtLink 
+            v-umami="{
+              name: 'navbar_navigation',
+              link: 'about',
+              destination: '/about',
+              location: 'header'
+            }"
+            to="/about"
+          >About</NuxtLink>
         </Button>
         <Button as-child size="sm">
-          <NuxtLink to="/submit">Submit</NuxtLink>
+          <NuxtLink 
+            v-umami="{
+              name: 'navbar_navigation',
+              link: 'submit',
+              destination: '/submit',
+              location: 'header'
+            }"
+            to="/submit"
+          >Submit</NuxtLink>
         </Button>
       </nav>
     </div>

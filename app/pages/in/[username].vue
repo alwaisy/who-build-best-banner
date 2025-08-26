@@ -60,13 +60,29 @@ defineOgImageComponent("Frame", {
 <template>
   <div class="container mx-auto max-w-5xl py-6 md:py-8 lg:py-10">
     <div class="mb-2 flex items-center justify-between">
-      <Button variant="secondary" size="sm" @click="router.back()">
+      <Button 
+        v-umami="{
+          name: 'navigation_back',
+          source: 'profile_page',
+          destination: 'home'
+        }"
+        variant="secondary" 
+        size="sm" 
+        @click="router.back()"
+      >
         <Icon name="mdi:arrow-left" />
         Back to Home
       </Button>
       <template v-if="(versions?.length || 0) > 1">
         <ClientOnly>
-          <Select v-model="currentVersion">
+          <Select 
+            v-model="currentVersion"
+            v-umami="{
+              name: 'version_selector_change',
+              username: username,
+              location: 'profile_page'
+            }"
+          >
             <SelectTrigger size="sm" class="w-[180px]">
               <SelectValue :placeholder="`Version: ${currentVersion || 'latest'}`" />
             </SelectTrigger>

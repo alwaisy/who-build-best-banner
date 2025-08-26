@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import { useAsyncData } from "#imports";
 import Fuse from "fuse.js";
-import { computed, onBeforeUnmount, ref, watch } from "vue";
-import HomeHero from "~/components/home/Hero.vue";
-import { fetchProfiles, orderProfiles } from "~/composables/use-profiles";
 import featured from "~/config/featured";
 
 definePageMeta({ viewTransition: true });
@@ -18,6 +14,8 @@ defineOgImageComponent("Frame", {
 const query = ref("");
 const debouncedQuery = ref("");
 let debounceTimer: ReturnType<typeof setTimeout> | undefined;
+// Providers-only toggle (from Hero checkbox)
+const providersOnly = ref(false);
 
 // Debounce query updates
 watch(
@@ -41,14 +39,10 @@ const {
   pending,
   error,
   refresh,
-} = await useAsyncData(
-  "profiles:all",
-  () => fetchProfiles(),
-  {
-    server: true,
-    default: () => [],
-  }
-);
+} = await useAsyncData("profiles:all", () => fetchProfiles(), {
+  server: true,
+  default: () => [],
+});
 
 // Build a Fuse instance over profiles when data is available
 const fuse = computed(
@@ -63,18 +57,25 @@ const fuse = computed(
 );
 
 // Computed filtered items based on query
-// Computed filtered items based on query
 const items = computed(() => {
   const q = debouncedQuery.value?.trim();
-  // When not searching, apply featured ordering. Otherwise, use Fuse search results.
-  if (!q) return orderProfiles(profiles.value || [], featured);
-  return fuse.value.search(q).map((r) => r.item);
+  const base = profiles.value || [];
+  const list = q
+    ? fuse.value.search(q).map((r) => r.item)
+    : orderProfiles(base, featured);
+  return providersOnly.value ? list.filter((p) => p.isProvider === true) : list;
+});
+
+// Infinite list (10 per load) using composable
+const { visibleItems, canLoadMore, sentinel, loadMore } = useInfiniteList(items, {
+  pageSize: 10,
+  resetOn: [debouncedQuery, providersOnly],
 });
 </script>
 
 <template>
   <div class="">
-    <HomeHero v-model="query" />
+    <HomeHero v-model="query" v-model:providers-only="providersOnly" />
 
     <!-- Loading State (only when no data yet) -->
     <div
@@ -106,6 +107,19 @@ const items = computed(() => {
     </div>
 
     <!-- Success State -->
-    <HomeProfilesList v-else :items="items" />
+    <div v-else>
+      <HomeProfilesList :items="visibleItems" />
+      <div v-if="canLoadMore" class="mt-6 flex flex-col items-center gap-3">
+        <div ref="sentinel" class="h-1 w-full" aria-hidden="true" />
+        <!-- Fallback button in case IntersectionObserver doesn't trigger -->
+        <button
+          type="button"
+          class="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium hover:bg-accent"
+          @click="loadMore()"
+        >
+          Load more
+        </button>
+      </div>
+    </div>
   </div>
 </template>

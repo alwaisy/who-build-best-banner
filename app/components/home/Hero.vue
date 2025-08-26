@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { Search } from "lucide-vue-next";
-import { Input } from "~/components/ui/input";
 
-const props = defineProps<{ modelValue: string }>();
-const emit = defineEmits<{ (e: "update:modelValue", value: string): void }>();
+const props = defineProps<{ modelValue: string; providersOnly?: boolean }>();
+const emit = defineEmits<{
+  (e: "update:modelValue", value: string): void;
+  (e: "update:providersOnly", value: boolean): void;
+}>();
 </script>
 
 <template>
@@ -28,6 +30,11 @@ const emit = defineEmits<{ (e: "update:modelValue", value: string): void }>();
         <div class="relative">
           <Input
             id="hero-search"
+            v-umami="{
+              name: 'search_input_focus',
+              location: 'hero_section',
+              component: 'search_input',
+            }"
             type="text"
             placeholder="Search by name, headline, or industry..."
             class="pr-12 py-3 text-base w-full"
@@ -37,6 +44,20 @@ const emit = defineEmits<{ (e: "update:modelValue", value: string): void }>();
           <Search
             class="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground pointer-events-none"
           />
+        </div>
+
+        <!-- Providers-only filter: shadcn checkbox below search bar -->
+        <div class="mt-3 text-center">
+          <div class="inline-flex items-center gap-2">
+            <Switch
+              id="offers-revamps"
+              :model-value="props.providersOnly === true"
+              @update:model-value="emit('update:providersOnly', $event)"
+            />
+            <Label for="offers-revamps" class="text-sm">
+              Offers LinkedIn revamps
+            </Label>
+          </div>
         </div>
       </div>
     </div>

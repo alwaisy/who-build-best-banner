@@ -44,6 +44,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "shadcn-nuxt",
     "nuxt-og-image",
+    "nuxt-umami",
   ],
   css: ["~/assets/css/tailwind.css"],
   shadcn: {
@@ -60,6 +61,12 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+
+  umami: {
+    autoTrack: true,
+    useDirective: true,
+  },
+
   runtimeConfig: {
     tursoDatabaseUrl: process.env.TURSO_DATABASE_URL,
     tursoAuthToken: process.env.TURSO_AUTH_TOKEN,

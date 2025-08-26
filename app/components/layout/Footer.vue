@@ -16,8 +16,26 @@
         />
         <!-- <p>&copy; {{ year }}</p> -->
         <div class="flex items-center gap-4">
-          <NuxtLink to="/about" class="hover:text-foreground">About</NuxtLink>
-          <NuxtLink to="/submit" class="hover:text-foreground">Submit</NuxtLink>
+          <NuxtLink 
+            v-umami="{
+              name: 'footer_link_click',
+              link: 'about',
+              destination: '/about',
+              location: 'footer'
+            }"
+            to="/about" 
+            class="hover:text-foreground"
+          >About</NuxtLink>
+          <NuxtLink 
+            v-umami="{
+              name: 'footer_link_click',
+              link: 'submit',
+              destination: '/submit',
+              location: 'footer'
+            }"
+            to="/submit" 
+            class="hover:text-foreground"
+          >Submit</NuxtLink>
         </div>
       </div>
     </div>

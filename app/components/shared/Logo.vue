@@ -15,7 +15,16 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <NuxtLink :to="props.to" class="inline-flex items-center gap-2" aria-label="Home">
+  <NuxtLink 
+    v-umami="{
+      name: 'logo_click',
+      destination: props.to,
+      location: 'logo'
+    }"
+    :to="props.to" 
+    class="inline-flex items-center gap-2" 
+    aria-label="Home"
+  >
     <!-- favicon from /public -->
     <img
       :src="'/favicon.svg'"

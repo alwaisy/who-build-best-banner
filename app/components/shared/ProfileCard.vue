@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Autoplay from "embla-carousel-autoplay";
 import type { Profile } from "~/lib/schema";
+import type { UnwrapRefCarouselApi } from '~/components/ui/carousel/interface';
 
 const props = defineProps<{ item: Profile }>();
 
@@ -73,28 +74,23 @@ async function toggleLike() {
     likeLoading.value = false;
   }
 }
-// console.log(banners.value, "banners")
-const currentIndex = ref(0);
-type ElLike = HTMLElement | { $el?: HTMLElement } | null;
-const carouselContentRef = ref<ElLike>(null);
 
-onMounted(() => {
-  const raw = carouselContentRef.value;
-  const el = (raw && (raw instanceof HTMLElement ? raw : raw.$el)) || null;
-  if (!el) return;
-  const onScroll = () => {
-    const w = el.clientWidth || 1;
-    currentIndex.value = Math.round(el.scrollLeft / w);
-  };
-  el.addEventListener("scroll", onScroll, { passive: true });
-});
+const currentIndex = ref(0);
+const carouselApi = ref<UnwrapRefCarouselApi | null>(null);
+
+function handleCarouselInit(api: UnwrapRefCarouselApi) {
+  carouselApi.value = api;
+  currentIndex.value = api?.selectedScrollSnap() ?? 0;
+  
+  api?.on('select', () => {
+    currentIndex.value = api?.selectedScrollSnap() ?? 0;
+  });
+}
 
 function goToSlide(i: number) {
-  const raw = carouselContentRef.value;
-  const el = (raw && (raw instanceof HTMLElement ? raw : raw.$el)) || null;
-  if (!el) return;
-  const w = el.clientWidth || 0;
-  el.scrollTo({ left: i * w, behavior: "smooth" });
+  if (carouselApi.value) {
+    carouselApi.value.scrollTo(i);
+  }
 }
 </script>
 
@@ -104,7 +100,30 @@ function goToSlide(i: number) {
       <template v-if="banners.length === 0">
         <div class="h-[300px] w-full bg-muted" />
       </template>
+      <template v-else-if="banners.length === 1">
+        <!-- Single image - no carousel needed -->
+        <NuxtLink
+          v-umami="{
+            name: 'profile_card_click',
+            username: item.username,
+            source: 'banner_image',
+            location: 'profile_card'
+          }"
+          :to="`/in/${item.username}`"
+          class="block"
+          view-transition
+        >
+          <img
+            :src="banners[0]"
+            :alt="(item.fullName ?? item.username) + ' banner'"
+            class="block w-full object-cover object-center rounded-t-xl"
+            :style="{ viewTransitionName: `banner-${item.username}0` }"
+            loading="lazy"
+          />
+        </NuxtLink>
+      </template>
       <template v-else>
+        <!-- Multiple images - show carousel -->
         <ClientOnly>
           <Carousel
             :plugins="[
@@ -113,10 +132,17 @@ function goToSlide(i: number) {
                 stopOnMouseEnter: true,
               }),
             ]"
+            @init-api="handleCarouselInit"
           >
-            <CarouselContent ref="carouselContentRef">
+            <CarouselContent>
               <CarouselItem v-for="(src, idx) in banners" :key="src + idx">
                 <NuxtLink
+                  v-umami="{
+                    name: 'profile_card_click',
+                    username: item.username,
+                    source: 'banner_image',
+                    location: 'profile_card'
+                  }"
                   :to="`/in/${item.username}`"
                   class="block"
                   view-transition
@@ -125,13 +151,13 @@ function goToSlide(i: number) {
                     :src="src"
                     :alt="(item.fullName ?? item.username) + ' banner'"
                     class="block w-full object-cover object-center rounded-t-xl"
-                    :style="{ viewTransitionName: `banner-${item.username}` }"
+                    :style="{ viewTransitionName: `banner-${item.username + idx}` }"
                     loading="lazy"
                   />
                 </NuxtLink>
               </CarouselItem>
             </CarouselContent>
-            <!-- Dots (top-right). Active = small bar; others = dots -->
+            <!-- Navigation dots with directional indicators -->
             <div class="absolute top-3 right-3 z-10">
               <div
                 class="flex items-center gap-1.5 rounded-full bg-black/40 backdrop-blur px-2 py-1 border border-white/10"
@@ -143,10 +169,10 @@ function goToSlide(i: number) {
                   :class="
                     i === currentIndex
                       ? 'w-6 h-2 rounded-full bg-white'
-                      : 'w-2.5 h-2.5 rounded-full bg-white/70 hover:bg-white'
+                      : 'w-2.5 h-2.5 rounded-full bg-white/70 hover:bg-white/90'
                   "
                   :aria-current="i === currentIndex ? 'true' : 'false'"
-                  aria-label="Go to slide"
+                  :aria-label="`Go to slide ${i + 1}`"
                   @click.stop.prevent="goToSlide(i)"
                 />
               </div>
@@ -156,7 +182,16 @@ function goToSlide(i: number) {
       </template>
     </div>
 
-    <NuxtLink :to="`/in/${item.username}`" view-transition>
+    <NuxtLink 
+      v-umami="{
+        name: 'profile_card_click',
+        username: item.username,
+        source: 'card_body',
+        location: 'profile_card'
+      }" 
+      :to="`/in/${item.username}`"
+      view-transition
+    >
       <CardContent class="relative">
         <div class="absolute left-6 z-10" style="top: -76px">
           <Avatar
@@ -176,7 +211,7 @@ function goToSlide(i: number) {
 
         <div class="flex justify-end gap-x-4">
           <template v-if="item.isProvider">
-            <Badge variant="default">Provider</Badge>
+            <Badge variant="default">LinkedIn Service</Badge>
           </template>
           <template v-else>
             <Badge>{{ item.username }}</Badge>
@@ -204,6 +239,12 @@ function goToSlide(i: number) {
     <CardFooter class="relative flex justify-between">
       <Button as-child variant="outline" size="icon">
         <NuxtLink
+          v-umami="{
+            name: 'external_link_click',
+            username: item.username,
+            destination: 'linkedin_profile',
+            location: 'profile_card'
+          }"
           :to="item.profileUrl"
           target="_blank"
           rel="noopener noreferrer"
@@ -220,6 +261,13 @@ function goToSlide(i: number) {
           class="rounded-full border-primary text-primary hover:bg-primary/10"
         >
           <NuxtLink
+            v-umami="{
+              name: 'external_link_click',
+              username: item.username,
+              destination: 'uploader_profile',
+              uploader_handle: uploaderHandle,
+              location: 'profile_card'
+            }"
             :to="uploaderUrl"
             target="_blank"
             rel="noopener noreferrer"
@@ -233,6 +281,12 @@ function goToSlide(i: number) {
       </div>
       <div class="flex items-center gap-2">
         <Button
+          v-umami="{
+            name: 'like_toggle',
+            username: item.username,
+            action: liked ? 'unlike' : 'like',
+            location: 'profile_card'
+          }"
           :variant="liked ? 'default' : 'outline'"
           size="sm"
           :disabled="likeLoading"
