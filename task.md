@@ -8,3 +8,5 @@
 - [fuck_it] improve updated at shit
 - [x] added by me shit / add by user shit
 - [x] develop logo component
+- [ ] featured profiles positons [0,1,2,3...]
+- [ ] add filters: isProvider

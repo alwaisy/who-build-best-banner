@@ -77,6 +77,20 @@ export async function fetchProfiles(): Promise<Profile[]> {
 }
 
 // Lightweight client-side search over name/headline/about
+// Lightweight client-side search over name/headline/about
+export function orderProfiles(items: Profile[], featuredUsernames: readonly string[]): Profile[] {
+  if (!Array.isArray(items) || !items.length) return items || [];
+  const byUsername = new Map(items.map((p) => [p.username, p]));
+  const featuredOrdered = featuredUsernames
+    .map((u) => byUsername.get(u))
+    .filter((p): p is Profile => !!p);
+
+  const featuredSet = new Set(featuredUsernames);
+  const rest = items.filter((p) => !featuredSet.has(p.username));
+
+  return [...featuredOrdered, ...rest];
+}
+
 export function filterProfiles(items: Profile[], q: string): Profile[] {
   if (!q) return items;
   const s = q.toLowerCase();

@@ -6,6 +6,7 @@ useHead({
 
 <template>
   <NuxtLayout>
-    <NuxtPage />
+    <NuxtPage view-transition />
+    <NuxtLoadingIndicator color="#8b5cf6" :height="8" />
   </NuxtLayout>
 </template>

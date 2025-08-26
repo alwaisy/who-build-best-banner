@@ -3,7 +3,8 @@ import { useAsyncData } from "#imports";
 import Fuse from "fuse.js";
 import { computed, onBeforeUnmount, ref, watch } from "vue";
 import HomeHero from "~/components/home/Hero.vue";
-import { fetchProfiles } from "~/composables/use-profiles";
+import { fetchProfiles, orderProfiles } from "~/composables/use-profiles";
+import featured from "~/config/featured";
 
 definePageMeta({ viewTransition: true });
 defineOgImageComponent("Frame", {
@@ -62,9 +63,11 @@ const fuse = computed(
 );
 
 // Computed filtered items based on query
+// Computed filtered items based on query
 const items = computed(() => {
   const q = debouncedQuery.value?.trim();
-  if (!q) return profiles.value || [];
+  // When not searching, apply featured ordering. Otherwise, use Fuse search results.
+  if (!q) return orderProfiles(profiles.value || [], featured);
   return fuse.value.search(q).map((r) => r.item);
 });
 </script>
