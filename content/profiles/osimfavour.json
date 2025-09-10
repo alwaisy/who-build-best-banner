@@ -1,12 +1,22 @@
 {
-  "v1": {
+  "v2": {
     "username": "osimfavour",
     "profileUrl": "https://www.linkedin.com/in/osimfavour/",
     "fullName": "Favour Osim",
     "headline": "Want a fast, scalable & well-performing React application? Click my featured section | React dev for fast-moving start-ups and businesses.",
     "about": "‎If you’re reading this, you’re either:\n‎\n‎• Tired of React projects that break when they scale\n‎• Struggling with messy code that slows down feature delivery\n‎• Or just curious how fast, maintainable UI is really built\n‎\n‎You don’t need to rebuild your entire frontend or chase new frameworks.\n‎\n‎You need clean, scalable, component-based architecture → built right the first time.\n‎\n‎That’s what I help early-stage teams and founders do:\n‎\n‎• Build lightning-fast UIs with reusable components\n‎• Organize code for long-term scale and easy handoff\n‎• Improve delivery speed using modern tools and AI\n‎• Make sure each new feature feels like plug-and-play.\n‎\n‎Whether that’s:\n‎\n‎• Structuring a React codebase so your team can scale\n‎• Speeding up UI builds without sacrificing quality\n‎• Rewriting monolithic components into modular, tested ones\n‎\n‎I build React applications that scale with you →not against you.\n‎\n‎Looking to fix your frontend problems or need help building fast?\n‎\n‎DM me or book a call, let’s build something strong and scalable.\n‎\n‎See you soon.",
+    "bannerImageUrl": "https://media.licdn.com/dms/image/v2/D4D16AQGfFs4h1FQdlA/profile-displaybackgroundimage-shrink_350_1400/B4DZgIcPbjH8AY-/0/1752488280477?e=1760572800&v=beta&t=WwnN4TZrtIGt2_3aIyll6SBPgPP0dzGpSGV5mJDSVAc",
+    "profileImageUrl": "https://media.licdn.com/dms/image/v2/D4D03AQE4qvaqDcIIHg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1718225193439?e=1760572800&v=beta&t=DZxbwumQCuyiLIkeltYvLBut5Nqsmr0cGCdgkVB7dWo",
+    "scrapedAt": "2025-09-10T05:12:55.714Z"
+  },
+  "v1": {
+    "about": "‎If you’re reading this, you’re either:\n‎\n‎• Tired of React projects that break when they scale\n‎• Struggling with messy code that slows down feature delivery\n‎• Or just curious how fast, maintainable UI is really built\n‎\n‎You don’t need to rebuild your entire frontend or chase new frameworks.\n‎\n‎You need clean, scalable, component-based architecture → built right the first time.\n‎\n‎That’s what I help early-stage teams and founders do:\n‎\n‎• Build lightning-fast UIs with reusable components\n‎• Organize code for long-term scale and easy handoff\n‎• Improve delivery speed using modern tools and AI\n‎• Make sure each new feature feels like plug-and-play.\n‎\n‎Whether that’s:\n‎\n‎• Structuring a React codebase so your team can scale\n‎• Speeding up UI builds without sacrificing quality\n‎• Rewriting monolithic components into modular, tested ones\n‎\n‎I build React applications that scale with you →not against you.\n‎\n‎Looking to fix your frontend problems or need help building fast?\n‎\n‎DM me or book a call, let’s build something strong and scalable.\n‎\n‎See you soon.",
     "bannerImageUrl": "https://media.licdn.com/dms/image/v2/D4D16AQGfFs4h1FQdlA/profile-displaybackgroundimage-shrink_350_1400/B4DZgIcPbjH8AY-/0/1752488280477?e=1759363200&v=beta&t=qEcxNfJQ6WKqag03-ygsJWFRy3uxe_XHP6xKqYA-k44",
+    "fullName": "Favour Osim",
+    "headline": "Want a fast, scalable & well-performing React application? Click my featured section | React dev for fast-moving start-ups and businesses.",
     "profileImageUrl": "https://media.licdn.com/dms/image/v2/D4D03AQE4qvaqDcIIHg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1718225193439?e=1759363200&v=beta&t=TyTggIDbxpEeDgIfhOwV-fNiIOkq3Okr-v62N-dNWrc",
-    "scrapedAt": "2025-08-26T09:55:05.204Z"
+    "profileUrl": "https://www.linkedin.com/in/osimfavour/",
+    "scrapedAt": "2025-08-26T09:55:05.204Z",
+    "username": "osimfavour"
   }
 }

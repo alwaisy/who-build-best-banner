@@ -1,12 +1,22 @@
 {
-  "v1": {
+  "v2": {
     "username": "noam-nisand",
     "profileUrl": "https://www.linkedin.com/in/noam-nisand/",
     "fullName": "Noam Nisand",
     "headline": "content is the new sales",
     "about": "Stop reading this. \n\nUnless you want to generate warm leads. \n\n👉 Here's my mission here:\n\nI’m helping Salespeople and Founders generate warm leads with LinkedIn. \n\n👉 Here's how I'm doing it: \n\nI post actionable content 5x per week. \n= You’re at the right place.\n\n👉 Here's what I do for my clients: \n\nStrategic content creation.\nWe are defining the best narrative together.\nTo generate warm leads and make more sales. \n\nFrom personal branding to lead generation. \nFrom cold to warm. \n\n👉 you want to work with me: \nShoot me a DM, or click on the link in my bio.",
+    "bannerImageUrl": "https://media.licdn.com/dms/image/v2/D4D16AQETIzulQCKN4w/profile-displaybackgroundimage-shrink_350_1400/B4DZkJ9U1rH4Ac-/0/1756808695805?e=1760572800&v=beta&t=nmushdR-52aXadJvXK-FRNpNk-pMPAUhSKHS47MEv4s",
+    "profileImageUrl": "https://media.licdn.com/dms/image/v2/D4D03AQHVLt2JiLAavw/profile-displayphoto-shrink_800_800/B4DZVnICE2GkAc-/0/1741191914176?e=1760572800&v=beta&t=6gUlJhAg7JAp6UYfZkW5UlHXm34eAFcLID_iihJK5QE",
+    "scrapedAt": "2025-09-10T05:12:21.777Z"
+  },
+  "v1": {
+    "about": "Stop reading this. \n\nUnless you want to generate warm leads. \n\n👉 Here's my mission here:\n\nI’m helping Salespeople and Founders generate warm leads with LinkedIn. \n\n👉 Here's how I'm doing it: \n\nI post actionable content 5x per week. \n= You’re at the right place.\n\n👉 Here's what I do for my clients: \n\nStrategic content creation.\nWe are defining the best narrative together.\nTo generate warm leads and make more sales. \n\nFrom personal branding to lead generation. \nFrom cold to warm. \n\n👉 you want to work with me: \nShoot me a DM, or click on the link in my bio.",
     "bannerImageUrl": "https://media.licdn.com/dms/image/v2/D4D16AQGut62Q69Mbrg/profile-displaybackgroundimage-shrink_350_1400/B4DZe7KXz2GgAg-/0/1751191748743?e=1759363200&v=beta&t=u6nGJ4XHi5qE-U7sXcxJWlZol6jK5gyopi0EamUVxr4",
+    "fullName": "Noam Nisand",
+    "headline": "content is the new sales",
     "profileImageUrl": "https://media.licdn.com/dms/image/v2/D4D03AQHVLt2JiLAavw/profile-displayphoto-shrink_800_800/B4DZVnICE2GkAc-/0/1741191914176?e=1759363200&v=beta&t=BhN3xuD5H8FzASzULEUekLyKj5InNyj70Km5tEy1K98",
-    "scrapedAt": "2025-08-26T12:18:30.496Z"
+    "profileUrl": "https://www.linkedin.com/in/noam-nisand/",
+    "scrapedAt": "2025-08-26T12:18:30.496Z",
+    "username": "noam-nisand"
   }
 }

@@ -1,0 +1,12 @@
+{
+  "v1": {
+    "username": "antonbutov",
+    "profileUrl": "https://www.linkedin.com/in/antonbutov/",
+    "fullName": "Anton Butov",
+    "headline": "Senior Android Developer | Kotlin & Jetpack Compose Expert | 5+ years | TDD, KMP, Remote-ready.",
+    "about": "I'm a passionate Senior Android Developer with over 5 years of commercial experience building robust and scalable apps using Kotlin, Jetpack Compose, and Clean Architecture. I focus on test-driven development (TDD), maintainable code, and high-quality UI/UX using modern Android tools.\n\nMy stack includes:\n- Kotlin, Jetpack Compose, Coroutines, Flow\n- Dependency Injection: Dagger 2, Hilt\n- KMP (Kotlin Multiplatform) for shared logic\n- CI/CD with GitHub Actions, Gradle\n- MVVM, MVI\n\nI actively contribute to open-source, write developer utilities, and enjoy working in product-driven remote teams. Currently open to new opportunities to build impactful mobile products with smart and motivated teams.",
+    "bannerImageUrl": "https://media.licdn.com/dms/image/v2/D4E16AQFb5hSvIf9avw/profile-displaybackgroundimage-shrink_350_1400/B4EZjlFzTTIIAc-/0/1756190182779?e=1759968000&v=beta&t=Kbc_rHamZD_1wpgNNml4eqFgHB_XnSenqwOWlu7eSw0",
+    "profileImageUrl": "https://media.licdn.com/dms/image/v2/D4E03AQG4HGPZNepr3g/profile-displayphoto-crop_800_800/B4EZjlGBQrGYAI-/0/1756190219450?e=1759968000&v=beta&t=8VR-Fe1t2vfDaCZcZ88Q1XncAoypd15270C-8Dp1Rqc",
+    "scrapedAt": "2025-09-03T23:33:22.737Z"
+  }
+}

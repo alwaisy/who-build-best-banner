@@ -1,12 +1,22 @@
 {
-  "v1": {
+  "v2": {
     "username": "fahaddev",
     "profileUrl": "https://www.linkedin.com/in/fahaddev/",
     "fullName": "Fahad Bin Qaiser",
-    "headline": "Frontend Developer | Your SaaS has 5 seconds to make sense. I make sure it does.",
+    "headline": "I help Growth-Stage SaaS companies with premium landing pages that bring leads.",
+    "about": "Your SaaS has 5 seconds to make sense.\nIf it doesn’t, every click, every ad works, gone before the scroll.\n\nGrowth-stage SaaS teams often struggle with the same traps:\n\n⚪ Pages that confuse more than they clarify.\n⚪ Messaging is buried under generic templates. \n⚪ Spending too much on ads that never convert.\n\nEvery one of these costs signups, revenue, and runway.\n\nYour SaaS doesn’t need a prettier landing page. \nIt needs one that:\n\n⚪ Makes sense in 5 seconds.\n⚪ Turns traffic into conversions.\n⚪ Communicates value before the scroll.\n\nSo, that's where I come.\n\nI'm Fahad.\nI build growth-focused landing pages for SaaS teams who can’t afford leaks in their funnel.\n\nA landing page is a growth engine.\nLeave it broken, and you'll have sales leakage.\n \nIf your page isn’t performing as expected, let’s optimize it.\nBook a 30-minute call here: \n\nhttps://calendly.com/fahadbinqaiser3/fahad-meeting-s?preview_source=et_card&month=2025-08",
+    "bannerImageUrl": "https://media.licdn.com/dms/image/v2/D4E16AQFksFNP4dx4fA/profile-displaybackgroundimage-shrink_350_1400/B4EZkn1kNtIQAY-/0/1757309981268?e=1760572800&v=beta&t=OJ_9oVt4PTn0LfASoAld6XatdEJz5GQ69DqsKufzA24",
+    "profileImageUrl": "https://media.licdn.com/dms/image/v2/D4E03AQGUlj8naOSSHg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1730885911553?e=1760572800&v=beta&t=-UcvpTehF3zyl230Op63eCmKAJd8qs3GUMethkGULxA",
+    "scrapedAt": "2025-09-10T05:02:40.615Z"
+  },
+  "v1": {
     "about": "Your SaaS has 5 seconds to make sense.\nIf it doesn’t, every click, every ad works, gone before the scroll.\n\nGrowth-stage SaaS teams often struggle with the same traps:\n\n⚪ Pages that confuse more than they clarify.\n⚪ Messaging is buried under generic templates. \n⚪ Spending too much on ads that never convert.\n\nEvery one of these costs signups, revenue, and runway.\n\nYour SaaS doesn’t need a prettier landing page. \nIt needs one that:\n\n⚪ Makes sense in 5 seconds.\n⚪ Turns traffic into conversions.\n⚪ Communicates value before the scroll.\n\nSo, that's where I come.\n\nI'm Fahad.\nI build growth-focused landing pages for SaaS teams who can’t afford leaks in their funnel.\n\nI design and build landing pages that grab attention, explain value instantly, and guide users to take action.\n\nA landing page isn’t just a webpage, it’s a growth engine.\nLeave it broken, and you'll have sales leakage.\n \nEvery visitor should become a real chance for growth.\nIf your page isn’t pulling its weight, let’s fix it.\n\nBook a 30-minute call here: \n\nhttps://calendly.com/fahadbinqaiser3/fahad-meeting-s?preview_source=et_card&month=2025-08",
     "bannerImageUrl": "https://media.licdn.com/dms/image/v2/D4E16AQETfi8EK0UYgA/profile-displaybackgroundimage-shrink_350_1400/B4EZjGahD0HgAg-/0/1755675498416?e=1759363200&v=beta&t=_4AZsaxeJ6Aqa7X42rjd2gWzVJhcegWX_8Py03us6ys",
+    "fullName": "Fahad Bin Qaiser",
+    "headline": "Frontend Developer | Your SaaS has 5 seconds to make sense. I make sure it does.",
     "profileImageUrl": "https://media.licdn.com/dms/image/v2/D4E03AQGUlj8naOSSHg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1730885911553?e=1759363200&v=beta&t=zWrbj3PjQ_kpclhCUmAg6O80KhGY4PNhodjB6uqfKXQ",
-    "scrapedAt": "2025-08-26T01:12:31.857Z"
+    "profileUrl": "https://www.linkedin.com/in/fahaddev/",
+    "scrapedAt": "2025-08-26T01:12:31.857Z",
+    "username": "fahaddev"
   }
 }
